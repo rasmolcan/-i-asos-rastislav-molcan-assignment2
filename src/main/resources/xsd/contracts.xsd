@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xs3p.xsl"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="contracts"
+           xmlns:tns="contracts"
+           version="1.1.0">
+
+
+    <xs:complexType name="InsuranceContract" abstract="true">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="createdAt" type="xs:date"/>
+                    <xs:element name="insurer" type="xs:long"/>
+                    <xs:element name="startedAt" type="xs:date"/>
+                    <xs:element name="endedAt" type="xs:date"/>
+                    <xs:element name="faceAmount" type="xs:double"/>
+                    <xs:element name="premium" type="xs:double"/>
+                </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="AddInsuranceContract" type="tns:InsuranceContracts"/>
+    <xs:element name="UpdateInsuranceContract" type="tns:InsuranceContracts"/>
+    <xs:complexType name="InsuranceContracts">
+        <xs:choice>
+            <xs:element name="HouseholdInsuranceContract" type="tns:HouseholdInsuranceContract"/>
+            <xs:element name="PropertyInsuranceContract" type="tns:PropertyInsuranceContract"/>
+            <xs:element name="InjuryInsuranceContract" type="tns:InjuryInsuranceContract"/>
+            <xs:element name="TravelInsuranceContract" type="tns:TravelInsuranceContract"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name ="LifeInsuranceContract" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="tns:InsuranceContract">
+                <xs:sequence>
+                    <xs:element name="insured" type="xs:long"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NonLifeInsuranceContract" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="tns:InsuranceContract">
+                <xs:sequence>
+                    <xs:element name="propertyAddress" type="xs:string"/>
+                    <xs:element name="propertyValue" type="xs:float"/>
+                    <xs:element name="propertyType" type="tns:NonLifeInsuranceContractPropertyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="NonLifeInsuranceContractPropertyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="flat"/>
+            <xs:enumeration value="house_wood"/>
+            <xs:enumeration value="house_concrete"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TravelInsuranceContractPropertyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="work"/>
+            <xs:enumeration value="sport"/>
+            <xs:enumeration value="vacation"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="InjuryInsuranceContractAreaType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="sk"/>
+            <xs:enumeration value="sk_eu"/>
+            <xs:enumeration value="eu"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+<!--    <xs:element name="TravelInsuranceContract">-->
+        <xs:complexType name="TravelInsuranceContract">
+            <xs:complexContent>
+                <xs:extension base="tns:LifeInsuranceContract">
+                    <xs:sequence>
+                        <xs:element name="inEurope" type="xs:boolean"/>
+                        <xs:element name="travelInsuranceContractType" type="tns:NonLifeInsuranceContractPropertyType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+<!--    </xs:element>-->
+
+<!--    <xs:element name="InjuryInsuranceContract">-->
+        <xs:complexType name="InjuryInsuranceContract">
+            <xs:complexContent>
+                <xs:extension base="tns:LifeInsuranceContract">
+                    <xs:sequence>
+                        <xs:element name="permanentInsultAmount" type="xs:float"/>
+                        <xs:element name="insuredDeathAmount" type="xs:float"/>
+                        <xs:element name="dailyCompensationForHosp" type="xs:float"/>
+                        <xs:element name="injuryInsuranceContractAreaType" type="tns:InjuryInsuranceContractAreaType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+<!--    </xs:element>-->
+
+<!--    <xs:element name="HouseholdInsuranceContract">-->
+        <xs:complexType name="HouseholdInsuranceContract">
+            <xs:complexContent>
+                <xs:extension base="tns:NonLifeInsuranceContract">
+                    <xs:sequence>
+                        <xs:element name="householdEquipmentValue" type="xs:float"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+        <xs:complexType name="PropertyInsuranceContract">
+            <xs:complexContent>
+                <xs:extension base="tns:NonLifeInsuranceContract">
+                    <xs:sequence>
+                        <xs:element name="isGarageIncluded" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+    <xs:element name="Contract" type="tns:InsuranceContract"/>
+    <xs:element name="Contracts">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="tns:InsuranceContract" name="con" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetByIdRequest" type="tns:GetByIdRequest"/>
+
+    <xs:complexType name="GetByIdRequest">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

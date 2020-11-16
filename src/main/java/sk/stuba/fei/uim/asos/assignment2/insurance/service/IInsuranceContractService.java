@@ -1,5 +1,8 @@
 package sk.stuba.fei.uim.asos.assignment2.insurance.service;
 
+
+import sk.stuba.fei.uim.asos.assignment2.ws.InsuranceContract;
+
 import java.util.List;
 
 /**
@@ -7,7 +10,7 @@ import java.util.List;
  *
  * @param <T> Trieda poistnej zmluvy
  */
-public interface IInsuranceContractService<T> {
+public interface IInsuranceContractService<T extends InsuranceContract, I> {
 
     T create(T contract);
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xs3p.xsl"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="contracts"
+           xmlns:tns="contracts"
+           version="1.1.0">
+
+  <xs:element name="users">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="tns:abstractUser" name="abstractUser" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="user">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractUser">
+        <xs:sequence>
+          <xs:element name="contracts" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="correspondenceAddress" type="tns:address3" minOccurs="0"/>
+          <xs:element name="email" type="xs:string" minOccurs="0"/>
+          <xs:element name="identificationNumber" type="xs:string" minOccurs="0"/>
+          <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+          <xs:element name="permanentAddress" type="tns:address3" minOccurs="0"/>
+          <xs:element name="surname" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="abstractUser">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="address3">
+    <xs:sequence>
+      <xs:element name="city" type="xs:string" minOccurs="0"/>
+      <xs:element name="street" type="xs:string" minOccurs="0"/>
+      <xs:element name="streetNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="zip" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="User" type="tns:user"/>
+  <xs:element name="User1" type="tns:user"/>
+  <xs:element name="getUserByIdRequest" type="tns:getUserByIdRequest"/>
+
+  <xs:complexType name="getUserByIdRequest">
+    <xs:sequence>
+      <xs:element name="userId" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

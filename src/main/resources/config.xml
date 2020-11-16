@@ -3,5 +3,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean name="userService" class="sk.stuba.fei.uim.asos.assignment2.user.service.UserService"/>
+    <bean id="atomicIntegerUserCounter" class="sk.stuba.fei.uim.asos.assignment2.utils.AtomicIntegerUserCounter"/>
+    <bean id="atomicIntegerContractCounter" class="sk.stuba.fei.uim.asos.assignment2.utils.AtomicIntegerContractCounter"/>
+    <bean id="InsuranceContractService" class="sk.stuba.fei.uim.asos.assignment2.insurance.service.InsuranceContractService">
+        <constructor-arg name="atomicIntegerContractCounter" ref="atomicIntegerContractCounter"/>
+    </bean>
+
+    <bean id="ContractsEndpoint" class="sk.stuba.fei.uim.asos.assignment2.insurance.endpoint.ContractsEndPoint">
+        <constructor-arg name="insuranceContractService" ref="InsuranceContractService"/>
+    </bean>
+
+    <bean name="converter" class="sk.stuba.fei.uim.asos.assignment2.user.endpoint.Converter"/>
+    <bean id="UsersEndpoint" class="sk.stuba.fei.uim.asos.assignment2.user.endpoint.UsersEndPoint">
+        <constructor-arg name="userService" ref="userService"/>
+        <constructor-arg name="converter" ref="converter"/>
+    </bean>
 
 </beans>

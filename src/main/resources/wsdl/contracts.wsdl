@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ContractsWSDL"
+             targetNamespace="contracts"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:ns="contracts"
+             xmlns:tns="contracts"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="contracts">
+            <xsd:import namespace="contracts" schemaLocation="../xsd/contracts.xsd"/>
+            <xsd:import namespace="contracts" schemaLocation="../xsd/users.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <service name="ContractsService">
+        <port name="ContractsServiceGetAllPort" binding="tns:ContractsServicePortBinding">
+            <soap:address location="http://localhost:8080/contracts"/>
+        </port>
+        <port name="UsersServiceGetAllPort" binding="tns:UsersServicePortBinding">
+            <soap:address location="http://localhost:8080/users"/>
+        </port>
+
+    </service>
+
+    <binding name="ContractsServicePortBinding" type="tns:ContractsServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getAll">
+            <soap:operation/>
+            <input name="request">
+                <soap:body use="literal"/>
+            </input>
+            <output name="response">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="createContract">
+            <input name="createcontractRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="createcontractResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getByUserId">
+            <input name="request">
+                <soap:body use="literal"/>
+            </input>
+            <output name="response">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="updateContract">
+            <input name="request">
+                <soap:body use="literal"/>
+            </input>
+            <output name="response">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <binding name="UsersServicePortBinding" type="tns:UsersServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getAll">
+            <soap:operation/>
+            <input name="request">
+                <soap:body use="literal"/>
+            </input>
+            <output name="response">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="updateUser">
+            <input name="updateUserRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="updateUserResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="createUser">
+            <input name="createUserRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="createUserResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getUserById">
+            <input name="getUserByIdRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="getUserByIdResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <portType name="ContractsServicePortType">
+        <operation name="getAll">
+            <input name="request" message="tns:contractsListRequest"/>
+            <output name="response" message="tns:contractsListResponse"/>
+        </operation>
+        <operation name="createContract">
+            <input name="createcontractRequest" message="tns:createcontractRequest"/>
+            <output name="createcontractResponse" message="tns:createcontractResponse"/>
+        </operation>
+        <operation name="getByUserId">
+            <input name="request" message="tns:contractsByUserIdRequest"/>
+            <output name="response" message="tns:contractsByUserIdResponse"/>
+        </operation>
+        <operation name="updateContract">
+            <input name="request" message="tns:updateContractRequest"/>
+            <output name="response" message="tns:updateContractResponse"/>
+        </operation>
+    </portType>
+
+    <portType name="UsersServicePortType">
+        <operation name="getAll">
+            <input name="request" message="tns:usersListRequest"/>
+            <output name="response" message="tns:usersListResponse"/>
+        </operation>
+        <operation name="createUser">
+            <input name="createUserRequest" message="tns:createUserRequest"/>
+            <output name="createUserResponse" message="tns:createUserResponse"/>
+        </operation>
+        <operation name="getUserById">
+            <input name="getUserByIdRequest" message="tns:getUserByIdRequest"/>
+            <output name="getUserByIdResponse" message="tns:getUserByIdResponse"/>
+        </operation>
+        <operation name="updateUser">
+            <input name="updateUserRequest" message="tns:updateUserRequest"/>
+            <output name="updateUserResponse" message="tns:updateUserResponse"/>
+        </operation>
+    </portType>
+
+    <message name="contractsListResponse">
+        <part name="response" element="ns:Contracts"/>
+    </message>
+    <message name="contractsListRequest"/>
+
+    <message name="createcontractResponse">
+        <part name="createContractResponse" element="ns:Contract"/>
+    </message>
+    <message name="createcontractRequest">
+        <part name="createContractRequest" element="ns:AddInsuranceContract"/>
+    </message>
+
+    <message name="contractsByUserIdResponse">
+        <part name="contractsByUserIdResponse" element="ns:Contracts"/>
+    </message>
+    <message name="contractsByUserIdRequest">
+        <part name="contractsByUserIdRequest" element="ns:GetByIdRequest"/>
+    </message>
+
+    <message name="updateContractResponse">
+        <part name="updateContractResponse" element="ns:Contract"/>
+    </message>
+    <message name="updateContractRequest">
+        <part name="updateContractRequest" element="ns:UpdateInsuranceContract"/>
+    </message>
+
+    <message name="usersListResponse">
+        <part name="usersListResponse" element="ns:users"/>
+    </message>
+    <message name="usersListRequest"/>
+
+    <message name="createUserResponse">
+        <part name="createUserResponse" element="ns:User"/>
+    </message>
+    <message name="createUserRequest">
+        <part name="createUserRequest" element="ns:User"/>
+    </message>
+
+    <message name="getUserByIdResponse">
+        <part name="getUserByIdResponse" element="ns:User"/>
+    </message>
+    <message name="getUserByIdRequest">
+        <part name="getUserByIdRequest" element="ns:getUserByIdRequest"/>
+    </message>
+
+    <message name="updateUserResponse">
+        <part name="updateUserResponse" element="ns:User1"/>
+    </message>
+    <message name="updateUserRequest">
+        <part name="updateUserRequest" element="ns:User1"/>
+    </message>
+
+</definitions>

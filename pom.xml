@@ -9,8 +9,8 @@
     <description>Assignment 2 for course ASOS FEI STU, school year 2020/2021</description>
     <developers>
         <developer>
-            <id>000000</id>
-            <name>Milan Mladoniczky</name>
+            <id>79671</id>
+            <name>Rastislav Molcan</name>
         </developer>
     </developers>
 
@@ -73,7 +73,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
