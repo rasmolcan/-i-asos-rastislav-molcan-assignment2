@@ -29,6 +29,7 @@ public class Converter {
         user.setIdentificationNumber(oldUser.getIdentificationNumber());
         user.setCorrespondenceAddress(corraddress);
         user.setPermanentAddress(permAddress);
+        user.getContracts().addAll(oldUser.getContracts());
 
         return user;
     }

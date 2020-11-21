@@ -11,6 +11,7 @@
 
     <bean id="ContractsEndpoint" class="sk.stuba.fei.uim.asos.assignment2.insurance.endpoint.ContractsEndPoint">
         <constructor-arg name="insuranceContractService" ref="InsuranceContractService"/>
+        <constructor-arg name="userService" ref="userService"/>
     </bean>
 
     <bean name="converter" class="sk.stuba.fei.uim.asos.assignment2.user.endpoint.Converter"/>
